@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 from enum import Enum
 import random, time
+import winsound
 
 
 class SeverityValues:
@@ -72,6 +73,11 @@ def generate_cluster_events(max_events_remaining: int):
     intervals = [random.uniform(5, 30) for _ in range(num_events - 1)]
     return intervals
 
+def audio_alert(frequency = 250, duration = 1500):
+    winsound.Beep(frequency, duration)
+    time.sleep(0.1)
+    winsound.Beep(frequency, duration)
+
 
 def simulate(severity: Severity, duration_hours: int, start_hour=8, realtime=False):
     if not realtime:
@@ -109,6 +115,7 @@ def simulate(severity: Severity, duration_hours: int, start_hour=8, realtime=Fal
 
         if realtime:
             print(f'(interval: {interval:.1f} min)')
+            audio_alert()
             time.sleep(interval * 60)
             simulated_time = datetime.now()
         else:
@@ -147,6 +154,7 @@ def simulate(severity: Severity, duration_hours: int, start_hour=8, realtime=Fal
             clusters_today += 1
             for cluster_interval in cluster_intervals:
                 if realtime:
+                    audio_alert()
                     time.sleep(cluster_interval * 60)
                     simulated_time = datetime.now()
                 else:
