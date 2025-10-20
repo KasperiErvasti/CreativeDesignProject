@@ -115,8 +115,8 @@ def simulate(severity: Severity, duration_hours: int, start_hour=8, realtime=Fal
 
         if realtime:
             print(f'(interval: {interval:.1f} min)')
-            audio_alert()
             time.sleep(interval * 60)
+            audio_alert()
             simulated_time = datetime.now()
         else:
             simulated_time += timedelta(minutes=interval)
@@ -154,8 +154,8 @@ def simulate(severity: Severity, duration_hours: int, start_hour=8, realtime=Fal
             clusters_today += 1
             for cluster_interval in cluster_intervals:
                 if realtime:
-                    audio_alert()
                     time.sleep(cluster_interval * 60)
+                    audio_alert()
                     simulated_time = datetime.now()
                 else:
                     simulated_time += timedelta(minutes=cluster_interval)
